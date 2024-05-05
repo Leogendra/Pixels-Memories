@@ -29,11 +29,9 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         // Pour rediriger la notif
-        /*
         Intent mainIntent = new Intent(context, MainActivity.class);
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, mainIntent, PendingIntent.FLAG_IMMUTABLE);
-        */
 
         PixelsParser jsonParser = new PixelsParser();
         List<Pixels.MoodEntry> moodEntries = jsonParser.parsePixelsFile(context, "backup.json");
