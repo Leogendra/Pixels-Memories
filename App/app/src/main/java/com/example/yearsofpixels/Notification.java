@@ -31,6 +31,7 @@ public class Notification {
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
                 .setGroup(NOTIFICATION_GROUP_KEY) // Définir la clé de groupe
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message));
 
@@ -59,6 +60,7 @@ public class Notification {
                 .setContentText("You have " + numberOfNotifications + " memories")
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
                 .setGroup(NOTIFICATION_GROUP_KEY)
                 .setGroupSummary(true); // Cette notification agit comme le résumé du groupe
 
