@@ -1,6 +1,7 @@
 # Pixels Memories
 
-**Pixels Memories** is a mobile app that allows you to have a notification to remember the Pixels of past years.
+**Pixels Memories** is a mobile app that allows you to have a notification to remember the Pixels of past years.  
+Link to the [Pixel app](https://teovogel.me/pixels/) by Teo Vogel.
 
 ## Customization
 
