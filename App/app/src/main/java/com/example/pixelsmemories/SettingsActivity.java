@@ -189,7 +189,7 @@ public class SettingsActivity extends AppCompatActivity {
         int minute = timeNotification.getMinute();
 
         int sliderMinValue = minPixelValueSlider.getProgress();
-        int sliderMaxValue = minPixelValueSlider.getProgress();
+        int sliderMaxValue = maxMemoriesSlider.getProgress();
 
         // Enregistrer les nouvelles valeurs des paramètres dans SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("Parametres", Context.MODE_PRIVATE);
@@ -209,7 +209,7 @@ public class SettingsActivity extends AppCompatActivity {
         int notificationHour = sharedPreferences.getInt("notification_hour", 20);
         int notificationMinute = sharedPreferences.getInt("notification_minute", 0);
         int sliderMinValue = sharedPreferences.getInt("min_pixels_value", 0);
-        int sliderNumberValue = sharedPreferences.getInt("min_pixels_value", 0);
+        int sliderNumberValue = sharedPreferences.getInt("max_memories_value", 10);
 
         minPixelValueSlider.setProgress(sliderMinValue);
         updateMinPixelsSlider(sliderMinValue);
