@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Pixels Memories</string>
+
+
+
+    <!-- Settings -->
+    <string name="settings">Paramètres</string>
+    <string name="never">jamais</string>
+    <string name="last_backup">Dernier Backup :&#160;</string>
+    <string name="last_backup_never">Dernier Backup : jamais</string>
+    <string name="import_json">Importer JSON</string>
+    <string name="choose_file">Choisir un fichier</string>
+    <string name="notification_hour">Heure de la notification</string>
+    <string name="minimal_value">Valeur minimale des Moods pour notification :&#160;</string>
+    <string name="minimal_value_set">Valeur minimale des Moods pour notification : 1.0</string>
+    <string name="maximal_number">Nombre maximum de Memories par jour :&#160;</string>
+    <string name="maximal_number_set">Nombre maximum de Memories par jour : 5</string>
+    <string name="save">Sauvegarder</string>
+</resources>
