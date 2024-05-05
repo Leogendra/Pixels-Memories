@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.yearsofpixels"
+    namespace = "com.example.pixelsmemories"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.yearsofpixels"
+        applicationId = "com.example.pixelsmemories"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

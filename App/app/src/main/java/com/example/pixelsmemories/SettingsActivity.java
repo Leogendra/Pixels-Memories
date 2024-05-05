@@ -1,4 +1,4 @@
-package com.example.yearsofpixels;
+package com.example.pixelsmemories;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;

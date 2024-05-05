@@ -1,4 +1,4 @@
-package com.example.yearsofpixels;
+package com.example.pixelsmemories;
 
 import android.content.Context;
 

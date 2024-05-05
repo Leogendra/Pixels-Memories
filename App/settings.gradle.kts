@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "YearsOfPixels"
+rootProject.name = "PixelsMemories"
 include(":app")
  
