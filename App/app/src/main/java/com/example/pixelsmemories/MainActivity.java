@@ -1,6 +1,8 @@
 package com.example.pixelsmemories;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
@@ -8,12 +10,15 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.Manifest;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +26,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Locale;
@@ -28,8 +34,11 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_NOTIFICATION_PERMISSION = 1;
     Button settings;
     LinearLayout pixelsContainer;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
         settings = findViewById(R.id.settings);
         pixelsContainer = findViewById(R.id.pixelsContainer);
 
-        scheduleAlarm(this);
+        checkNotificationPermission();
+
+        scheduleNotification(this);
 
         readJsonFromFile();
 
@@ -198,9 +209,39 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    private void checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                // Si la permission n'est pas accordée, la demander
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_NOTIFICATION_PERMISSION);
+            }
+            else {
+                scheduleNotification(this);
+            }
+        }
+        else {
+            scheduleNotification(this);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_NOTIFICATION_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                scheduleNotification(this);
+            }
+            else {
+                Toast.makeText(this, getString(R.string.refused_notification), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+
 
     @SuppressLint("ScheduleExactAlarm")
-    public void scheduleAlarm(Context context) {
+    public void scheduleNotification(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
@@ -216,6 +257,11 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, notificationHour);
         calendar.set(Calendar.MINUTE, notificationMinute);
         calendar.set(Calendar.SECOND, 0);
+
+        // Si l'heure programmée est passée pour aujourd'hui, planifiez pour demain
+        if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
 
         /*Toast.makeText(this, "Memories set to " + notificationHour+"h"+notificationMinute, Toast.LENGTH_SHORT).show();*/
 

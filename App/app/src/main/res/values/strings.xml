@@ -14,4 +14,6 @@
     <string name="maximal_number">Maximum number of memory per day :&#160;</string>
     <string name="maximal_number_set">Maximum number of memory per day : 5</string>
     <string name="save">Save</string>
+
+    <string name="refused_notification">Refused notification permission</string>
 </resources>

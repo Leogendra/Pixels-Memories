@@ -14,4 +14,6 @@
     <string name="maximal_number">Nombre maximum de Memories par jour :&#160;</string>
     <string name="maximal_number_set">Nombre maximum de Memories par jour : 5</string>
     <string name="save">Sauvegarder</string>
+
+    <string name="refused_notification">Permission de notification refusée</string>
 </resources>
