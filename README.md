@@ -3,6 +3,13 @@
 **Pixels Memories** is a mobile app that allows you to have a notification to remember the Pixels of past years.  
 Link to the [Pixels app](https://teovogel.me/pixels/) by Teo Vogel.
 
+
+<p align="center">
+  <img src="App/assets/MainActivity.png" alt="Main Page" width="45%">
+  <img src="App/assets/SettingsActivity.png" alt="Settings" width="45%">
+</p>
+
+
 ## Customization
 
 - Notification time
