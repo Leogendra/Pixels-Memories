@@ -1,5 +1,9 @@
-*.iml
-.gradle
+# Gradle
+.gradle/
+build/
+*/build/
+
+# Local configuration
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -7,9 +11,37 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/.idea/gradle.xml
+/.idea/compiler.xml
+/.idea/vcs.xml
+
+# Keystore files
+*.jks
+*.keystore
+
+# Android Studio
+/captures/
+/.externalNativeBuild/
+
+# Lint
+/lint/intermediates/
+/lint/generated/
+/lint/outputs/
+
+# Logs
+*.log
+
+# OS-specific files
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
+Thumbs.db
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Dependency directories
+/.gradle/
+/build/
+
+# Signing key
+signing.properties

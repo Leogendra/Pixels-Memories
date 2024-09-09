@@ -2,6 +2,8 @@
     <string name="app_name">Pixels Memories</string>
 
     <!-- Settings -->
+    <string name="previous">Précédent</string>
+    <string name="next">Suivant</string>
     <string name="settings">Paramètres</string>
     <string name="never">jamais</string>
     <string name="last_backup">Dernier Backup :&#160;</string>

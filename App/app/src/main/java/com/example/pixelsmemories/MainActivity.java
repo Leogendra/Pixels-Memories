@@ -35,9 +35,10 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_NOTIFICATION_PERMISSION = 1;
-    Button settings;
+    Button previousButton, nextButton, settings;
+    TextView dateDisplay;
     LinearLayout pixelsContainer;
-
+    Calendar dateMemories;
 
 
     @Override
@@ -47,12 +48,28 @@ public class MainActivity extends AppCompatActivity {
 
         settings = findViewById(R.id.settings);
         pixelsContainer = findViewById(R.id.pixelsContainer);
+        dateDisplay = findViewById(R.id.date_display);
 
         checkNotificationPermission();
 
         scheduleNotification(this);
 
-        readJsonFromFile();
+        Notification.clearAllNotifications(this);
+
+        dateMemories = Calendar.getInstance();
+        readJsonFromFile(dateMemories);
+
+        previousButton = findViewById(R.id.button_previous);
+        previousButton.setOnClickListener(v -> {
+            dateMemories.add(Calendar.DAY_OF_MONTH, -1);
+            readJsonFromFile(dateMemories);
+        });
+
+        nextButton = findViewById(R.id.button_next);
+        nextButton.setOnClickListener(v -> {
+            dateMemories.add(Calendar.DAY_OF_MONTH, 1);
+            readJsonFromFile(dateMemories);
+        });
 
         settings.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
@@ -70,12 +87,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void readJsonFromFile() {
+    private void readJsonFromFile(Calendar today) {
+
+        // Update date display
+        SimpleDateFormat sdf = new SimpleDateFormat("d MMMM", Locale.getDefault());
+        String formattedDate = capitalizeEachWord(sdf.format(today.getTime()));
+        dateDisplay.setText(formattedDate);
 
         PixelsParser jsonParser = new PixelsParser();
         List<Pixels.MoodEntry> moodEntries = jsonParser.parsePixelsFile(this, "backup.json");
 
-        Calendar today = Calendar.getInstance();
+        // Calendar today = Calendar.getInstance();
         int day = today.get(Calendar.DAY_OF_MONTH);
         int month = today.get(Calendar.MONTH) + 1;
         int year;
@@ -133,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void createDynamicLayouts(String[][] dates, String[][] moods, String[] moodAvgs, String[] summaries) {
+        pixelsContainer.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(this);
 
         for (int i = 0; i < dates.length; i++) {
@@ -153,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             calendar.set(Calendar.DAY_OF_MONTH, day);
 
             SimpleDateFormat sdf = new SimpleDateFormat("EEEE d MMMM yyyy", Locale.getDefault());
-            String formattedDate = capitalizeEachWord(sdf.format(calendar.getTime()) );
+            String formattedDate = capitalizeEachWord(sdf.format(calendar.getTime()));
 
             for (String mood : moods[i]) {
                 double moodValue = Double.parseDouble(mood);

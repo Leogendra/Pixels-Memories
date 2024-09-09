@@ -13,8 +13,6 @@ import java.util.stream.Collectors;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-
-
     public static double calculateAverage(List<Integer> numbers) {
         int sum = 0;
         for (int number : numbers) {
@@ -34,6 +32,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         PixelsParser jsonParser = new PixelsParser();
         List<Pixels.MoodEntry> moodEntries = jsonParser.parsePixelsFile(context, "backup.json");
 
+        // On stack pas les notifs
         Notification.clearAllNotifications(context);
 
         if (moodEntries != null) {
