@@ -24,6 +24,29 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        // Récupérer les préférences partagées pour l'heure configurée par l'utilisateur
+        SharedPreferences sharedPreferences = context.getSharedPreferences("Parametres", Context.MODE_PRIVATE);
+        int notificationHour = sharedPreferences.getInt("notification_hour", 20);
+        int notificationMinute = sharedPreferences.getInt("notification_minute", 0);
+
+        // Heure actuelle
+        Calendar now = Calendar.getInstance();
+
+        // Heure de notification programmée
+        Calendar scheduledTime = Calendar.getInstance();
+        scheduledTime.set(Calendar.HOUR_OF_DAY, notificationHour);
+        scheduledTime.set(Calendar.MINUTE, notificationMinute);
+        scheduledTime.set(Calendar.SECOND, 0);
+
+        // Heure maximale (2 heures après l'heure programmée)
+        Calendar maxAllowedTime = (Calendar) scheduledTime.clone();
+        maxAllowedTime.add(Calendar.HOUR_OF_DAY, 2);
+
+        // Si l'heure actuelle est avant l'heure programmée ou après la limite, on ne fait rien
+        if (now.before(scheduledTime) || now.after(maxAllowedTime)) {
+            return; // Sortir de la méthode
+        }
+
         // Pour rediriger la notif
         Intent mainIntent = new Intent(context, MainActivity.class);
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -43,7 +66,6 @@ public class AlarmReceiver extends BroadcastReceiver {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
             int month = calendar.get(Calendar.MONTH) + 1;
 
-            SharedPreferences sharedPreferences = context.getSharedPreferences("Parametres", Context.MODE_PRIVATE);
             int sliderMinPixelValue = sharedPreferences.getInt("min_pixels_value", 0);
             int sliderMaxMemories = sharedPreferences.getInt("max_memories_value", 0);
             float minPixelsValue = 1 + (sliderMinPixelValue / 10f);
