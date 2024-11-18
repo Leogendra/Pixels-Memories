@@ -24,30 +24,27 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        // Récupérer les préférences partagées pour l'heure configurée par l'utilisateur
+        // Get the notification hour and minute from SharedPreferences
         SharedPreferences sharedPreferences = context.getSharedPreferences("Parametres", Context.MODE_PRIVATE);
         int notificationHour = sharedPreferences.getInt("notification_hour", 20);
         int notificationMinute = sharedPreferences.getInt("notification_minute", 0);
 
-        // Heure actuelle
         Calendar now = Calendar.getInstance();
-
-        // Heure de notification programmée
         Calendar scheduledTime = Calendar.getInstance();
         scheduledTime.set(Calendar.HOUR_OF_DAY, notificationHour);
         scheduledTime.set(Calendar.MINUTE, notificationMinute);
         scheduledTime.set(Calendar.SECOND, 0);
 
-        // Heure maximale (2 heures après l'heure programmée)
+        // Max allowed time 2 hours after the scheduled time
         Calendar maxAllowedTime = (Calendar) scheduledTime.clone();
         maxAllowedTime.add(Calendar.HOUR_OF_DAY, 2);
 
-        // Si l'heure actuelle est avant l'heure programmée ou après la limite, on ne fait rien
+        // If the current time is before the scheduled time or after the max allowed time, return
         if (now.before(scheduledTime) || now.after(maxAllowedTime)) {
-            return; // Sortir de la méthode
+            return;
         }
 
-        // Pour rediriger la notif
+        // To open the app when the notification is clicked
         Intent mainIntent = new Intent(context, MainActivity.class);
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, mainIntent, PendingIntent.FLAG_IMMUTABLE);
@@ -55,7 +52,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         PixelsParser jsonParser = new PixelsParser();
         List<Pixels.MoodEntry> moodEntries = jsonParser.parsePixelsFile(context, "backup.json");
 
-        // On stack pas les notifs
+        // Clear all notifications before sending new ones
         Notification.clearAllNotifications(context);
 
         if (moodEntries != null) {
@@ -70,7 +67,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             int sliderMaxMemories = sharedPreferences.getInt("max_memories_value", 0);
             float minPixelsValue = 1 + (sliderMinPixelValue / 10f);
 
-            // Parcourir toutes les années précédentes
+            // Iterate through all the years from 2017 to the current year
             for (int pastYear = 2017; pastYear < calendar.get(Calendar.YEAR); pastYear++) {
                 if ((sliderMaxMemories != 10) && (memories_number >= sliderMaxMemories)) {break;}
                 String dateLastYear = pastYear + "-" + month + "-" + day;

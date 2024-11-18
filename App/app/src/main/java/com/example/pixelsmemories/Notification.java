@@ -20,7 +20,7 @@ public class Notification {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         int notificationId = (int) System.currentTimeMillis(); // Un ID unique pour chaque notification
 
-        // Création de l'intention pour lancer MainActivity
+        // Create an intent to launch MainActivity
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
@@ -32,16 +32,16 @@ public class Notification {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setGroup(NOTIFICATION_GROUP_KEY) // Définir la clé de groupe
+                .setGroup(NOTIFICATION_GROUP_KEY) // Define the group of the notification
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message));
 
-        // Créer le canal de notification pour Android 8.0 Oreo et versions ultérieures
+        // Create the notification channel for Android Oreo and higher
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_MEMORIES, NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
 
-        // Afficher la notification
+        // Send the notification
         notificationManager.notify(notificationId, builder.build());
     }
 
@@ -49,7 +49,7 @@ public class Notification {
     public static void sendSummaryNotification(Context context, int numberOfNotifications) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // Création de l'intention pour lancer MainActivity
+        // Create an intent to launch MainActivity
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
@@ -62,14 +62,14 @@ public class Notification {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setGroup(NOTIFICATION_GROUP_KEY)
-                .setGroupSummary(true); // Cette notification agit comme le résumé du groupe
+                .setGroupSummary(true); // This is the summary notification
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_MEMORIES, NotificationManager.IMPORTANCE_LOW);
             notificationManager.createNotificationChannel(channel);
         }
 
-        notificationManager.notify(0, builder.build()); // ID fixe pour la notification de résumé
+        notificationManager.notify(0, builder.build()); // ID fixed to 0 for the summary notification
     }
 
 

@@ -191,7 +191,7 @@ public class SettingsActivity extends AppCompatActivity {
         int sliderMinValue = minPixelValueSlider.getProgress();
         int sliderMaxValue = maxMemoriesSlider.getProgress();
 
-        // Enregistrer les nouvelles valeurs des paramètres dans SharedPreferences
+        // Save the new parameter values in SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("Parametres", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("notification_hour", hour);

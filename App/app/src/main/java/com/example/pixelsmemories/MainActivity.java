@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (moodEntries != null) {
 
-            // Parcourir toutes les années précédentes
+            // Iterate through all the years from 2017 to the current year
             for (int i = 1; i <= today.get(Calendar.YEAR) - today.getActualMinimum(Calendar.YEAR); i++) {
                 year = today.get(Calendar.YEAR) - i;
                 String datePastYear = year + "-" + month + "-" + day;
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
 
         for (int i = 0; i < dates.length; i++) {
-            // Créer une instance de layout_pixels.xml
+            // Create a layout_pixels.xml layout for each date
             View dynamicItem = inflater.inflate(R.layout.layout_pixels, pixelsContainer, false);
 
             TextView dateTextView = dynamicItem.findViewById(R.id.dateText);
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             TextView summaryTextView = dynamicItem.findViewById(R.id.resumeText);
 
             int day = Integer.parseInt(dates[i][0]);
-            int month = Integer.parseInt(dates[i][1]) - 1; // Mois en Java commence à 0
+            int month = Integer.parseInt(dates[i][1]) - 1; // Month is 0-based
             int year = Integer.parseInt(dates[i][2]);
 
             Calendar calendar = Calendar.getInstance();
@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                             0,
                             LinearLayout.LayoutParams.MATCH_PARENT,
-                            1.0f // poids de 1 pour chaque icône
+                            1.0f // Weight of 1 for each icon
                     );
                     moodIcon.setLayoutParams(layoutParams);
                     moodIconsContainer.addView(moodIcon);
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
             String drawableName = "pixel_entry_border_" + moodIndex;
             int drawableId = this.getResources().getIdentifier(drawableName, "drawable", this.getPackageName());
 
-            // Appliquer la bordure
+            // Apply the border drawable to the pixelContainer
             LinearLayout pixelContainer = dynamicItem.findViewById(R.id.pixelContainer);
             pixelContainer.setBackground(ContextCompat.getDrawable(this, drawableId));
 
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
     private void checkNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13+
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                // Si la permission n'est pas accordée, la demander
+                // If the permission is not granted, request it
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_NOTIFICATION_PERMISSION);
             }
             else {
@@ -269,26 +269,25 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(context, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
-        // Utilisez les préférences partagées pour déterminer quand déclencher l'alarme
+        // Use the notification hour and minute from SharedPreferences
         SharedPreferences sharedPreferences = context.getSharedPreferences("Parametres", Context.MODE_PRIVATE);
         int notificationHour = sharedPreferences.getInt("notification_hour", 20);
         int notificationMinute = sharedPreferences.getInt("notification_minute", 0);
 
-        // Configurez le calendrier pour l'heure de notification spécifiée
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, notificationHour);
         calendar.set(Calendar.MINUTE, notificationMinute);
         calendar.set(Calendar.SECOND, 0);
 
-        // Si l'heure programmée est passée pour aujourd'hui, planifiez pour demain
+        // If the time has already passed, set it for the next day
         if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
         /*Toast.makeText(this, "Memories set to " + notificationHour+"h"+notificationMinute, Toast.LENGTH_SHORT).show();*/
 
-        // Planifiez l'alarme pour déclencher exactement à cette heure chaque jour
+        // Set the alarm to trigger exactly at this time every day
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
 
