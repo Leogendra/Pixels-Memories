@@ -131,12 +131,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (datesList.isEmpty()) {
-                summariesList.add("Vous n'avez pas de PixelsMemories à cette date.");
+                summariesList.add(getString(R.string.no_pixel_today));
             }
 
         }
         else {
-            summariesList.add("Aucun fichier de Pixels en mémoire.");
+            summariesList.add(getString(R.string.no_pixel_file));
         }
 
         if (datesList.isEmpty()) {
