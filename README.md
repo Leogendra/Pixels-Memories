@@ -1,30 +1,27 @@
-# Pixels Memories
+### **Pixels Memories**
 
-**Pixels Memories** is a mobile app that allows you to have a notification to remember the Pixels of past years.  
+**Pixels Memories** is a mobile app that sends you notifications to remember past years' Pixels.  
 Link to the [Pixels app](https://teovogel.me/pixels/) by Teo Vogel.
-
 
 <p align="center">
   <img src="App/assets/MainActivity.png" alt="Main Page" width="45%">
   <img src="App/assets/SettingsActivity.png" alt="Settings" width="45%">
 </p>
 
+## **Customization**
 
-## Customization
-
-- Notification time
-- Maximum number of notifications per day
-- Minimum value of a pixel to be notified
+- Notification time  
+- Maximum number of notifications per day  
+- Minimum pixel value to trigger a notification  
 
 <br>  
 
-### [FRENCH]
+### **[Français]**
 
-**Pixels Memories** est une application mobile qui permet d'avoir une notification pour se rappeler des Pixels des années passées.
-L'application est disponible en Francais et en Anglais.
+**Pixels Memories** est une application mobile qui vous envoie des notifications pour vous rappeler les Pixels des années passées. L'application est disponible en français et en anglais.
 
-## Personnalisation
+## **Personnalisation**  
 
-- Heure de notification
-- Nombre maximum de notification par jour
-- Valeur minimale d'un pixel pour être notifié
+- Heure de notification  
+- Nombre maximal de notifications par jour  
+- Valeur minimale d'un pixel pour être notifié  
