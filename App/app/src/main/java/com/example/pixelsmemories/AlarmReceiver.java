@@ -67,8 +67,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             int sliderMaxMemories = sharedPreferences.getInt("max_memories_value", 0);
             float minPixelsValue = 1 + (sliderMinPixelValue / 10f);
 
-            // Iterate through all the years from 2017 to the current year
-            for (int pastYear = 2017; pastYear < calendar.get(Calendar.YEAR); pastYear++) {
+            // Iterate through all the years from the current year to 2017 (Pixels launch)
+            for (int pastYear = calendar.get(Calendar.YEAR) - 1; pastYear >= 2017; pastYear--) {
                 if ((sliderMaxMemories != 10) && (memories_number >= sliderMaxMemories)) {break;}
                 String dateLastYear = pastYear + "-" + month + "-" + day;
 
