@@ -18,8 +18,10 @@ import java.util.Calendar;
 
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -153,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void createDynamicLayouts(String[][] dates, String[][] moods, String[] moodAvgs, String[] summaries) {
         pixelsContainer.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -215,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public static String capitalizeEachWord(String text) {
         String[] words = text.split(" ");
         StringBuilder sb = new StringBuilder();
@@ -230,9 +230,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     private void checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 14+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            if (!alarmManager.canScheduleExactAlarms()) {
+                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM,
+                    Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+            }
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 13+
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 // If the permission is not granted, request it
@@ -247,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -259,8 +267,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
 
     @SuppressLint("ScheduleExactAlarm")
@@ -296,7 +302,4 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         moveTaskToBack(true);
     }
-
-
-
 }
