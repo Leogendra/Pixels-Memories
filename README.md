@@ -1,7 +1,8 @@
 ### **Pixels Memories**
 
-**Pixels Memories** is a mobile app that sends you notifications to remember past years' Pixels.  
-Link to the [Pixels app](https://teovogel.me/pixels/) by Teo Vogel.
+**Pixels Memories** is a mobile app that sends you notifications to remember past years' [Pixels](https://teovogel.me/pixels/) by Teo Vogel.
+
+Download [here](https://github.com/Leogendra/Pixels-Memories/releases/latest)!
 
 <p align="center">
   <img src="App/assets/MainActivity.png" alt="Main Page" width="45%">
@@ -18,7 +19,7 @@ Link to the [Pixels app](https://teovogel.me/pixels/) by Teo Vogel.
 
 ### **[Français]**
 
-**Pixels Memories** est une application mobile qui vous envoie des notifications pour vous rappeler les Pixels des années passées. L'application est disponible en français et en anglais.
+**Pixels Memories** est une application Android qui vous envoie des notifications pour vous rappeler les Pixels des années passées. L'application est disponible en français et en anglais.
 
 ## **Personnalisation**  
 
