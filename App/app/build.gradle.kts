@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.pixelsmemories"
+    namespace = "com.gatienh.pixelsmemories"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.pixelsmemories"
+        applicationId = "com.gatienh.pixelsmemories"
         minSdk = 24
         targetSdk = 35
         versionCode = 6

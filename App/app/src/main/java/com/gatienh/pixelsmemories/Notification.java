@@ -1,4 +1,4 @@
-package com.example.pixelsmemories;
+package com.gatienh.pixelsmemories;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,7 +13,7 @@ public class Notification {
 
     public static final String CHANNEL_ID = "pixels_memories";
     public static final CharSequence CHANNEL_MEMORIES = "Pixels Memories";
-    public static final String NOTIFICATION_GROUP_KEY = "com.example.pixelsmemories.MEMORIES_GROUP";
+    public static final String NOTIFICATION_GROUP_KEY = "com.gatienh.pixelsmemories.MEMORIES_GROUP";
 
 
     public static void sendNotification(Context context, String title, String message) {

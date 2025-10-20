@@ -1,4 +1,4 @@
-package com.example.pixelsmemories;
+package com.gatienh.pixelsmemories;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
